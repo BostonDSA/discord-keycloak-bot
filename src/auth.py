@@ -7,12 +7,10 @@ app = Flask(__name__)
 
 client = LinkedRolesOAuth2(
     client_id = os.environ.get('DISCORD_CLIENT_ID'),
-    client_secret = os.environ.get('DISCORD_CLIENT_ID'),
+    client_secret = os.environ.get('DISCORD_CLIENT_SECRET'),
     redirect_uri = os.environ.get('REDIRECT_URI'),
     scopes=('role_connections.write', 'identify'),
 )
-
-asyncio.run(client.start())
 
 @app.route("/linked-role")
 async def linked_role():
@@ -23,6 +21,7 @@ async def linked_role():
 async def discord_oauth_callback():
     code = request.args.get('code')
     print(code)
+    await client.start()
     token = await client.get_access_token(code)
     user = await client.fetch_user(token)
     if user is None:
