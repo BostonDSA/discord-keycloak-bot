@@ -7,6 +7,8 @@ name = "pypi"
 "discord.py" = "*"
 linked-roles = "*"
 flask = {extras = ["async"], version = "*"}
+authlib = "*"
+requests = "*"
 
 [dev-packages]
 
